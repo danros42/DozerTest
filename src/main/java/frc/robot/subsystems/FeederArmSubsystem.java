@@ -6,27 +6,28 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-
-public class FeederSubsystem extends SubsystemBase {
+public class FeederArmSubsystem extends SubsystemBase {
   /**
-   * Creates a new FeederSubsystem.
+   * Creates a new FeederArmSubsystem.
    */
-  private final WPI_VictorSPX master;  
-  
-  public FeederSubsystem() {
-    this.master = new WPI_VictorSPX(Constants.kFeederPort);
+  private final WPI_TalonSRX master;
+
+  public FeederArmSubsystem() {
+    this.master = new WPI_TalonSRX(Constants.kFeederPort);
     this.configMotor();
     this.stop();
   }
-  
+
   public void configMotor(){
     this.master.setNeutralMode(NeutralMode.Brake);
     this.master.setInverted(InvertType.None);
