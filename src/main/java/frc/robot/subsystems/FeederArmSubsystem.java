@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -31,6 +32,8 @@ public class FeederArmSubsystem extends SubsystemBase {
   public void configMotor(){
     this.master.setNeutralMode(NeutralMode.Brake);
     this.master.setInverted(InvertType.None);
+    this.master.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+
   }
 
   public void set(double power){
