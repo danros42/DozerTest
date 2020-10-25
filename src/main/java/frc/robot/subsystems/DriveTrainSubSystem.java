@@ -96,14 +96,14 @@ public class DriveTrainSubSystem extends DiffDrivetrain {
 
   @Override
   public int getRawLeftPosition() {
-    
-    return 0;
+
+    return this.masterLeft.getSelectedSensorPosition();
   }
 
   @Override
   public int getRawRightPosition() {
     
-    return 0;
+    return this.masterRight.getSelectedSensorPosition();
   }
 
   @Override
