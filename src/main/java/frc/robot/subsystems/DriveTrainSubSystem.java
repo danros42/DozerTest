@@ -14,6 +14,10 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrainSubSystem extends DiffDrivetrain {
@@ -24,6 +28,8 @@ public class DriveTrainSubSystem extends DiffDrivetrain {
   private WPI_TalonSRX middleRight;
   private WPI_VictorSPX rearLeft;
   private WPI_VictorSPX rearRight;
+  private AHRS navx;
+
   
   /**
    * Creates a new DriveTrainSystem.
@@ -80,6 +86,7 @@ public class DriveTrainSubSystem extends DiffDrivetrain {
   private void setSensors(){
     this.masterLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     this.masterRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    this.navx = new AHRS(SPI.Port.kMXP);
   }
 
   @Override
@@ -101,7 +108,6 @@ public class DriveTrainSubSystem extends DiffDrivetrain {
 
   @Override
   public double getHeading() {
-    
-    return 0;
+    return this.navx.getYaw();
   }
 }
