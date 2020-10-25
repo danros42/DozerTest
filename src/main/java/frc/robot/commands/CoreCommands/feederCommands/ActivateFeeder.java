@@ -7,6 +7,7 @@
 
 package frc.robot.commands.CoreCommands.feederCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.FeederSubsystem;
 
@@ -17,17 +18,44 @@ public class ActivateFeeder extends CommandBase {
 
   private final FeederSubsystem feeder;
   private final double power;
+  private double endtime;
+  private final double duration;
 
   public ActivateFeeder(FeederSubsystem feeder, double power) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.feeder = feeder;
     this.power = power;
+    this.duration = 0;
     addRequirements(feeder);
   }
+  /**
+   * 
+   * @param feeder
+   * @param power
+   * @param time
+   */
+  public ActivateFeeder(FeederSubsystem feeder, double power, double duration) {
+       // Use addRequirements() here to declare subsystem dependencies.
+       this.feeder = feeder;
+       this.power = power;
+       this.duration = duration;
+       addRequirements(feeder);
+       this.withTimeout(duration);
+  }
+  
+  // public ActivateFeeder(FeederSubsystem feeder, double power, double time) {
+  //   // Use addRequirements() here to declare subsystem dependencies.
+  //   this.feeder = feeder;
+  //   this.power = power;
+  //   this.duration = time;
+  //   addRequirements(feeder);
+  // }
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.endtime = this.duration + Timer.getFPGATimestamp();
     this.feeder.set(power);
   }
 
@@ -45,6 +73,9 @@ public class ActivateFeeder extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (this.duration != 0){
+      return Timer.getFPGATimestamp() >= this.endtime;
+    }
     return false;
   }
 }
