@@ -45,6 +45,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     this.master.set(ControlMode.PercentOutput, power);
   }
 
+  public int getposition(){
+    return this.master.getSelectedSensorPosition();
+  }
+
   public void stop(){
     this.master.stopMotor();
   }
